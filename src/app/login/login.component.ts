@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import {LoginService} from "../services/login.service";
+import {CookiesService} from "../services/cookies.service";
+import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,7 @@ export class LoginComponent {
   });
 
 
-  constructor(private fb: FormBuilder, private loginServie: LoginService) {}
+  constructor(private fb: FormBuilder, private loginServie: LoginService, public cookies: CookiesService) {}
 
   onSubmit(): void {
     if(this.addressForm.status == 'VALID') {
