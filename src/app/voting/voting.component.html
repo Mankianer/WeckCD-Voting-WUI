@@ -1,0 +1,34 @@
+<mat-card>
+  <mat-card-content>
+    <table mat-table [dataSource]="dataSource" style="width: 100%;">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID</th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name</th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="links">
+        <th mat-header-cell *matHeaderCellDef> Links</th>
+        <td mat-cell *matCellDef="let element">
+          <a mat-button color="primary" *ngFor="let link of element.links" target="_blank" href="{{link}}">
+            <mat-icon>link</mat-icon>
+          </a></td>
+      </ng-container>
+      <ng-container matColumnDef="votes">
+        <th mat-header-cell *matHeaderCellDef> Votes</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-raised-button color="warn" (click)="voteDown(element)">-</button>
+          {{element.votes}}
+          <button mat-raised-button color="accent" (click)="voteUp(element)">+</button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" type="submit">Submit</button>
+  </mat-card-actions>
+</mat-card>

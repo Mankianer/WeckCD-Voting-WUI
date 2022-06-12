@@ -13,7 +13,6 @@ export class LoginService {
   private readonly loginCookieName = "isSignIn";
 
   public isLoggedIn(): boolean {
-    console.log(this.cookies.loadBoolean(this.loginCookieName))
     return this.cookies.loadBoolean(this.loginCookieName);
   }
 

@@ -18,12 +18,15 @@ import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import {CookieService} from "ngx-cookie-service";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { VotingComponent } from './voting/voting.component';
+import {MatTableModule} from "@angular/material/table";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
     LoginComponent,
+    VotingComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     MatRadioModule,
     MatCardModule,
     ReactiveFormsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatTableModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
