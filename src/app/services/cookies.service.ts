@@ -47,5 +47,8 @@ export class CookiesService {
 
   public setCookiesActive(value: boolean) {
     this.cookiesActive = value;
+    if(!value) {
+      this.cookieService.deleteAll();
+    }
   }
 }

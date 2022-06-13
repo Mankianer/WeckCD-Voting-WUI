@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="!voting.hasVoted()">
   <mat-card-content>
     <table mat-table [dataSource]="dataSource" style="width: 100%;">
       <ng-container matColumnDef="id">
@@ -29,6 +29,12 @@
     </table>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button color="primary" type="submit">Submit</button>
+    <button mat-raised-button color="primary" type="submit" (click)="sendVotes()">Abstimmen</button>
   </mat-card-actions>
+</mat-card>
+
+<mat-card *ngIf="voting.hasVoted()">
+  <mat-card-content>
+    Vielen Dank für's Abstimmen!
+  </mat-card-content>
 </mat-card>

@@ -20,6 +20,7 @@ import {CookieService} from "ngx-cookie-service";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { VotingComponent } from './voting/voting.component';
 import {MatTableModule} from "@angular/material/table";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {MatTableModule} from "@angular/material/table";
     MatCardModule,
     ReactiveFormsModule,
     MatSlideToggleModule,
-    MatTableModule
+    MatTableModule,
+    HttpClientModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

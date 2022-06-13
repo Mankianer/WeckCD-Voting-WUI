@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {VotingService} from "../services/voting.service";
 
 export interface Voting {
   id: number;
@@ -30,7 +31,7 @@ export class VotingComponent implements OnInit {
 
   dataSource = VOTING;
 
-  constructor() { }
+  constructor(public voting: VotingService) { }
 
   ngOnInit(): void {
   }
@@ -45,5 +46,9 @@ export class VotingComponent implements OnInit {
     if (element.votes > MIN_VOTES) {
       element.votes--;
     }
+  }
+
+  public sendVotes() {
+    this.voting.sendVotes(this.dataSource);
   }
 }
