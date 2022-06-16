@@ -16,11 +16,11 @@ export class LoginComponent {
   });
 
 
-  constructor(private fb: FormBuilder, private loginServie: LoginService, public cookies: CookiesService) {}
+  constructor(private fb: FormBuilder, private loginService: LoginService, public cookies: CookiesService) {}
 
   onSubmit(): void {
     if(this.addressForm.status == 'VALID') {
-      let isSuccess = this.loginServie.loggIn(this.addressForm.get('login')?.value, this.addressForm.get('password')?.value);
+      let isSuccess = this.loginService.loggIn(this.addressForm.get('login')?.value, this.addressForm.get('password')?.value);
       if(!isSuccess) this.addressForm.get('password')?.setValue('');
     }
   }
