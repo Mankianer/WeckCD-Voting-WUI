@@ -24,7 +24,8 @@ export class CookiesService {
     if (this.cookiesActive) {
       return this.cookieService.get(name);
     } else {
-      return  this.cookieTempMap.get(name);
+      let s = this.cookieTempMap.get(name);
+      return s == undefined ? "" : JSON.parse(s);
     }
   }
 
@@ -49,6 +50,14 @@ export class CookiesService {
     this.cookiesActive = value;
     if(!value) {
       this.cookieService.deleteAll();
+    }
+  }
+
+  public exists(name: string): boolean {
+    if (this.cookiesActive) {
+      return this.cookieService.check(name);
+    } else {
+      return this.cookieTempMap.has(name);
     }
   }
 }

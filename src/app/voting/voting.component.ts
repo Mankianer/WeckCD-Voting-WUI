@@ -1,25 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {VotingService} from "../services/voting.service";
-
-export interface Voting {
-  id: number;
-  name: string;
-  links: string[];
-  votes: number;
-}
-
-const VOTING: Voting[] = [
-  {id: 1, name: 'Angular', links: ['https://angular.io/', 'https://angular-university.com/'], votes: 0},
-  {id: 2, name: 'React', links: ['https://reactjs.org/', 'https://reactjs.org/'], votes: 0},
-  {id: 3, name: 'Vue', links: ['https://vuejs.org/', 'https://vuejs.org/'], votes: 0},
-  {id: 4, name: 'Polymer', links: ['https://polymer-project.org/', 'https://polymer-project.org/'], votes: 0},
-  {id: 5, name: 'Svelte', links: ['https://svelte.dev/', 'https://svelte.dev/'], votes: 0},
-  {id: 6, name: 'Angular Material', links: ['https://material.angular.io/', 'https://material.angular.io/'], votes: 0},
-];
+import {Voting, VotingService} from "../services/voting.service";
+import {CookiesService} from "../services/cookies.service";
 
 
-const MAX_VOTES = 5;
-const MIN_VOTES = 0;
+
+
+const MAX_POINTS_EACH = 5;
+const MIN_POINTS_EACH = 0;
+const MAX_POINTS = 30;
+const MIN_POINTS = 0;
 
 @Component({
   selector: 'app-voting',
@@ -27,28 +16,41 @@ const MIN_VOTES = 0;
   styleUrls: ['./voting.component.css']
 })
 export class VotingComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'links', 'votes'];
+  displayedColumns: string[] = ['id', 'title','interpret', 'links', 'votes'];
 
-  dataSource = VOTING;
+  dataSource: Voting[] = [];
+  summe: Voting | undefined = undefined;
 
-  constructor(public voting: VotingService) { }
+  constructor(public voting: VotingService) {
+     this.voting.votings.subscribe(value => this.dataSource = value);
+     this.voting.summe.subscribe(value => this.summe = value);
+  }
 
   ngOnInit(): void {
   }
 
   public voteUp(element: Voting) {
-    if (element.votes < MAX_VOTES) {
-      element.votes++;
+    if(this.summe !== undefined){
+      if (element.points < MAX_POINTS_EACH && this.summe.points < MAX_POINTS) {
+        element.points++;
+        this.summe.points++;
+        this.voting.saveVotes(this.dataSource);
+      }
     }
   }
 
   public voteDown(element: Voting) {
-    if (element.votes > MIN_VOTES) {
-      element.votes--;
+    if(this.summe !== undefined) {
+      if (element.points > MIN_POINTS_EACH && this.summe.points > MIN_POINTS) {
+        element.points--;
+        this.summe.points--;
+        this.voting.saveVotes(this.dataSource);
+      }
     }
   }
 
   public sendVotes() {
+    this.voting.saveVotes(this.dataSource);
     this.voting.sendVotes(this.dataSource);
   }
 }
